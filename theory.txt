@@ -1,0 +1,499 @@
+DataStructure Contents:
+> Introduction
+> Stack (3)
+> Queue
+  > Linear Queue(3)
+  > Circular Queue(3)
+  > Dequeue(1)
+> Linked List (Imp)
+  a. Single/Singly Linked List
+  b. Doubly/Double Linked List
+  c. Circular Linked List
+  
+> Tree
+> Graph
+> Complexity
+> Searching
+> Sorting
+
+
+Introduction of Data Structure:
+===============================
+
+
+Data
+> Operations (INSERT,UPDATE,SEARCH)
+
+ SELECT
+ FROM
+ WHERE ename='KING'  
+
+
+10 20 50 35 15  => ARRAY,STACK,QUEUE,TREE,GRAPH
+
+function: Top of the stack
+ 
+What is data structure?
+> It is stored representation of data inside memory.
+> Data structure will defines how to data going to be processed inside computer memory.
+  ex: Array, Stack, Queue ...
+
+Stack:
+> Stack is a data structure which will supports Last In First Out property (LIFO)  
+
+Popular Operation on stack:
+1. init()
+2. push()
+3. pop()
+4. peek()
+5. size()
+6. isempty()
+7. isfull()
+
+init():
+> Initializing stack is nothing but it is process of initializing top by -1.
+  top = -1
+
+push():
+> It will inserts new item/element top of the stack.
+
+pop():
+> It will returns and removes top element of the stack.
+
+peek():
+> It will returns top element of the stack.
+
+size():
+> It will returns currently present elements in the stack.
+
+isfull():
+> If stack is overflow(full) then returns true(1) else returns false(0).
+
+> Whenever index of the top item becomes equavalent of the max size -1.
+
+isempty():
+> It will checks wether the stack is empty or not.
+  if stack is empty it will returns true else returns false.
+
+Implementation of Stack
+1. Static implementation/representation of stack using array
+2. Dynamic implementation of stack using linked list
+
+Types of stack:
+1. Upward Stack:
+   > This type of stack growing in up direction
+2. Downward Stack:
+   > This type of stack groing in down ward direction
+
+Note: upward and downward stack can be implemented using single array.
+
+Static representation/impl of stack using Array:
+================================================
+> In this type of implementation stack is created/managed by using static array, Working with stack is nothing but indirectly we are working with array. But operation upon that array we are performing by following the property of stack.
+
+> In this stack type of element array insertion(push) and deletion(pop) is possible only from a top of the stack/array.
+
+Required variables for implementing stack:
+1. Element array:
+   > This array is responsible for holding stack elements.
+     datatype e[MAX];
+2. Top:
+   > It will holds index of the top element of the stack.
+
+Required Operations:
+> init():
+  Using this method we can initialize a stack.
+  It is a process of initializing a top by -1.
+
+> It is a better to provide data structure(stack) operations in seperate file
+  ie. stack.c
+
+  An testing operations in seperate file
+  ie. teststk.c
+
+stack.c
+teststk.c
+
+What is the problem with stack.c?
+> As we seen inside stack.c stack variables are declared as global and as we known memory allocation of global variables happening only once.
+
+> Using stack.c we cant manage more than one stack. 
+
+> It is better to provide handle of creating a stack to the teststk.c program.
+
+> Eventhough we can implement any data structure without using structure but still it is not recommended. We should use structure always.
+
+> Without using structure we have to pass address of element array as well as address of top seperately.
+
+Required structure declaration for stack:
+typedef struct
+{
+  int e[5];
+  int top;
+}stack; 
+
+What is the problem with implementation of stack3.c?
+Ans: 
+> If we want to change element type of the stack then chages are required to many places which is no recommended.
+
+Solution:
+> Instead of using required type directoly it is better redefine existing datatype using typedef statement...etc.
+
+> The main advantage of typedef statement is to provide centrelized logics.
+
+Assignment:
+> Implement upward and downward stack using single array.
+
+Application of Stack:
+> To solve mathematical expression
+> To reverse the string contents
+> To execute/call a function all OS are using stack data structure.
+
+How to managing upward and downward stack within a single array?
+1. Required structure declaration
+   typedef struct
+   {
+     item_type e[MAX];
+     int topup,topdown;
+   }stack;
+
+2. inititalizing stack
+   void init(stack* sp)
+   {
+     sp->topup = -1;
+     sp->topdown = MAX;
+   }
+
+3. push items
+   pushup():  e[++topup] = item;
+   pushdown(): e[--topdown] = item;
+
+4. pop items
+   popup(): return e[topup--];
+   popdown(): return e[topdown++]
+
+5. peek items
+   peekup(): return e[topup];
+   peekdown(): return e[topdown]
+
+6. size of stack
+   sizeup():  topup+1
+   sizedown(): MAX - topdown
+
+7. full
+   topup+1 == topdown
+   topup == topdown-1
+
+8. empty
+   isemptyup(): topup==-1
+   isemptydown(): topdown==MAX
+
+
+Queue Data Structure:
+> If you want to inserts an elements prior to processing then you should go for queue data structure.
+
+> Queue data structure works based on property of First In First Out (FIFO) or First Come First Serve(FCFS).
+
+Types of queue:
+1. Linear Queue
+2. Circular Queue
+3. Priority Queue
+4. Dequeue (Double Ended Queue)
+ 
+Any type of queue can be implemented using
+1. Array (Static representation of queue)
+2. Linked List (Dynamic representation of queue)
+
+Static implementation of Linear queue:
+> Insertion is allowed only from a rear point
+> Deletion is allowed only from a front point
+
+Required Structured declaration:
+typedef struct
+{
+  item_type e[MAX];
+  int f,r;
+}queue;
+
+Queue Operations:
+> init(): Initializing front by 0 and read by -1.
+          f = 0,r = -1
+
+> insert() or enqueue():
+  > Inside linear queue insertion is allowed only from a rear point of the queue.
+
+  > In linear queue insertion not allowed if rear point reached to MAX position of the array/queue even though queue/array is empty.
+ 
+> delete() or dequeue():
+  Deletion is allowed only from a front point
+
+> peek():
+  It will returns front element of the queue (read only)
+
+> size()
+> isempty()
+> isfull()
+ 
+What is the disadvantage of linear queue?
+ans: Once rear point reached to the max position of the queue then insertion is not allowed eventhough queue is empty.
+
+What is the solution of above problem?
+> We can solve above problems applying data shift operations upon a queue elements
+
+1. Shifting queue elements one position left while performing delete operations (refer queue2.c,testque2.c)
+
+   As we seen previously delete operation takes 0(1) time, but in that case delete operation takes 0(n) time. 
+   Time complexity for deleting one item: 0(n)
+   Time complexity for deleting N items : 0(n^2)
+  
+
+2. Shifting queue elements at the time of insertion if required
+
+   Time complexity for insert one item: 0(n)
+   Time complexity for insert N items : 0(n^2)
+
+Note: By applying data shift operations eventhough we can solve the problem of linear but still it is not recommended, because shift may takes 0(n) time to perform shifting.
+
+We can perform insert/delete operations in constant time by using circular queue.
+
+Circular Queue:
+> In this type queue logically array is considered as circular
+> In this case front and rear will be increamented circularly.
+> After reaching end point front/rear again pointing from 0 index onwards
+
+What is mean by circular increment in front and rear?
+Ans:
+Assume maximum capacity of queue is MAX
+  front = front + 1  //linear increment in front
+  front = (front+1)%MAX //Circular increment
+  
+  rear  = rear + 1;  //linear increment in rear
+  rear  = (rear+1)%MAX //circular increment
+
+Analysing empty and full conditions:
+> Full
+     front == (rear+1)%MAX
+> Empty 
+     front == (rear+1)%MAX
+
+Based on above analysis empty and full condition becomes identical.
+
+What is the solution of above identical conditions in case of full and empty?
+
+There are three solutions
+1. Use an extra member(variable) count inside queue structure declaration.
+   typedef struct
+   {
+     item_type e[MAX];
+     int front,rear,count;
+   }
+   
+> At the time of insertion count should be increament by one. At the time of deletion count should be decremented by one.
+
+> Initial value of count should be 0.
+
+Empty Condition:
+   c==0
+Full Condition:
+   c==MAX
+
+2. Keep the record of last operation is it insert or delete using extra member(variable) flag.
+   typedef struct
+   {
+     item_type e[MAX];
+     int front,rear,flag;
+   }
+
+insert():
+  ......
+  flag = 1;
+delete():
+  ......
+  flag = 0;
+
+   if(flag==0) => delete
+   if(flag==1) => insert
+
+Empty:
+  f==(r+1)%MAX && flag==0
+Full:
+  f==(r+1)%MAX && flag==1
+
+3. Leave an unused entry before front element
+
+
+
+Implementation of Circular queue using count:
+> Required structure declaration
+  typedef struct
+  {
+    item_type e[MAX];
+    int f,r,c;
+  }queue;
+
+> All operations are same as linear queue
+ 
+What is the initial value of count?
+Ans: 0
+
+Note: Increment count variable by 1 while insertion, decrement count by 1 at the time of deletion.
+
+Solution2: Keep the record of previous operation(insert/delete)
+> empty/full and flag==0 => empty
+  empty/full and flag==1 => full
+
+Required structure declaration:
+> typedef struct
+  {
+    item_type e[MAX];
+    int f,r,glag;
+  }queue;
+
+> All operations are same as linear queue.
+  init():
+     f=0,r=-1,flag=0;
+
+Solution3: Leave an unsed entry before front element of the queue.
+
+> Required structure declaration is same as linear queue.
+
+> In this type of implementation of circular queue if array size is MAX then inside queue only MAX-1 elements are allowed.
+
+> In this type of implementation previous position of the front left forever.
+
+empty: f==(r+1)%MAX
+full : f==(r+2)%MAX
+
+
+Dequeue(Double Ended Queue):
+> In this type of queue insertion/deletion can b allowed from any point(front/rear) of the queue.
+
+> We can insert an element either from a front or rear.
+
+> We can delete an item either from a front or rear.
+
+Required Structure declaration:
+> Same as linear queue
+
+Required operations:
+> init()
+> insertfront()  - new
+> insertrear()   - old
+> deletefront()  - old
+> deleterear()   - new
+> size() 	 - no change 
+> display()	 - no change
+> peek()         - no change
+ 
+> isfrontfull()  -  f==0
+> isrearfull()   -  r==MAX-1
+
+> isempty():     - no change
+
+Based on operations data structures are divided into two categories:
+1. Linear/Sequential Data Structure
+   ie. Stack, Queue, List
+
+2. Non-Linear Data Structure:
+   ie. Tree, Graph
+Q: Which is non-linear data structure?
+   a. stack
+   b. queue
+   c. linked list
+   d. tree
+ans: d
+
+(Imp)
+Linked List:
+Based on managing number of pointers linked list divided into two categories
+1. Single Linked List or Singly List
+2. Double linked list or doubly list
+
+Single Linked List:
+> It is also linear data structure
+
+> It is an abstract datatype/data structure.
+
+> It is dynamic data structure
+
+Operations on linked list:
+1. initializing a list
+2. create a list
+
+Insert:
+3. insert at begin
+4. insert at the end
+5. insert at given position
+6. insert at before given element
+7. insert after given element
+8. insert at propure place of sorted element
+9. insert at middle of the list
+
+Delete:
+10. delete first 
+11. delete last
+12. delete given item
+13. delete item from given position
+14. delete before given
+15. delete after given
+
+Mis:
+16. search given item
+17. search smallest item
+18. search largest item
+19. reverse 
+20. display
+21. size
+22. split
+
+Implementation of Linked List:
+Required Structure Declaration:
+> In case of list we have to need managing two fields
+  a. info or data  (item_type)
+  b. next pointer
+
+typedef int item_type; 
+
+typedef struct node
+{
+   item_type info;
+   struct node * next;
+}node;
+
+
+Array vs List:
+
+int i;  => node* ptr;
+i=0;    => ptr = start;
+i<n;    => ptr!=NULL
+i++;    => ptr = ptr->next
+a[i]    => ptr->info
+
+ 
+displayreverse() 
+reverse()
+createlist()
+split()
+
+> How to display elements of the list using recursion.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
